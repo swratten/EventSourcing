@@ -29,13 +29,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSourcing.Integration.Tests", "EventSourcing.Integration.Tests\EventSourcing.Integration.Tests.csproj", "{215691EC-51FB-4BD2-A46C-396094727054}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{821D8306-C110-45AB-BDF7-AA80FDA942CE}"
-ProjectSection(SolutionItems) = preProject
-	docker-compose.yml = docker-compose.yml
-	docker-compose.build.yml = docker-compose.build.yml
-	docker-compose.ci.yml = docker-compose.ci.yml
-	docker-compose.pg.yml = docker-compose.pg.yml
-	Dockerfile = Dockerfile
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		docker-compose.build.yml = docker-compose.build.yml
+		docker-compose.ci.yml = docker-compose.ci.yml
+		docker-compose.pg.yml = docker-compose.pg.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workshops", "Workshops", "{CEEE5F74-121E-437F-B3B4-4E7C65482644}"
 EndProject
@@ -45,14 +45,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MeetingsManagement", "Meeti
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{E15B4D4B-1527-446F-8613-A09B230D6643}"
-ProjectSection(SolutionItems) = preProject
-	Workshops\BuildYourOwnEventStore\docker\docker-compose.yml = Workshops\BuildYourOwnEventStore\docker\docker-compose.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Workshops\BuildYourOwnEventStore\docker\docker-compose.yml = Workshops\BuildYourOwnEventStore\docker\docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{F755E316-140C-4A73-9586-06860521C1B6}"
-ProjectSection(SolutionItems) = preProject
-	Sample\MeetingsManagement\docker\docker-compose.yml = Sample\MeetingsManagement\docker\docker-compose.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Sample\MeetingsManagement\docker\docker-compose.yml = Sample\MeetingsManagement\docker\docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tickets", "Tickets", "{3C628C0A-71AD-4C41-9977-A33F89C0751B}"
 EndProject
@@ -71,9 +71,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome.Temperature", "Sample\AsyncProjections\SmartHome.Temperature\SmartHome.Temperature.csproj", "{91604B2D-CFDA-4777-BFD1-F459495C96B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildYourOwnEventStore", "BuildYourOwnEventStore", "{94524EA9-A4BA-4684-99B8-BBE9EE85E791}"
-ProjectSection(SolutionItems) = preProject
-	Workshops\BuildYourOwnEventStore\Readme.md = Workshops\BuildYourOwnEventStore\Readme.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Workshops\BuildYourOwnEventStore\Readme.md = Workshops\BuildYourOwnEventStore\Readme.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Marten", "Core.Marten\Core.Marten.csproj", "{6EF458DC-00FA-45B0-A722-1ACCEB686CAF}"
 EndProject
@@ -180,9 +180,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStoreDB", "EventStoreDB", "{9C5C1CB3-B8CD-4CEE-A5F2-5983770C60BB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ECommerce", "ECommerce", "{8B6B9E43-F3F2-4F9E-A89C-E7B311B72A8D}"
-ProjectSection(SolutionItems) = preProject
-	Sample\EventStoreDB\ECommerce\README.md = Sample\EventStoreDB\ECommerce\README.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Sample\EventStoreDB\ECommerce\README.md = Sample\EventStoreDB\ECommerce\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Carts", "Carts", "{923B37CD-DBD5-488D-B2B9-000C91F6B861}"
 EndProject
@@ -199,17 +199,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.ElasticSearch", "Core.ElasticSearch\Core.ElasticSearch.csproj", "{B32E504C-C17A-419B-A705-6B876EF44854}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{F078A982-331A-4EB6-B6F8-34464359B05D}"
-ProjectSection(SolutionItems) = preProject
-	.github\workflows\build.dotnet.yml = .github\workflows\build.dotnet.yml
-	.github\workflows\publish.docker.yml = .github\workflows\publish.docker.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.dotnet.yml = .github\workflows\build.dotnet.yml
+		.github\workflows\publish.docker.yml = .github\workflows\publish.docker.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marten.Integration.Tests", "Marten.Integration.Tests\Marten.Integration.Tests.csproj", "{D9D67A6C-FE95-4864-B8F1-BD2689134590}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple", "Simple", "{11DD4963-5BB4-4E1B-9475-8EB10C822BFC}"
-ProjectSection(SolutionItems) = preProject
-	Sample\EventStoreDB\Simple\README.md = Sample\EventStoreDB\Simple\README.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Sample\EventStoreDB\Simple\README.md = Sample\EventStoreDB\Simple\README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Api", "Sample\EventStoreDB\Simple\ECommerce.Api\ECommerce.Api.csproj", "{414D1D34-1002-4159-B738-DF3EE042F9FD}"
 EndProject
@@ -244,6 +244,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsVersioning.Tests", "Sample\EventsVersioning\EventsVersioning.Tests\EventsVersioning.Tests.csproj", "{B8C099AE-3585-4228-9C79-81BB340A5215}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.EventStoreDB.Tests", "Core.EventStoreDB.Tests\Core.EventStoreDB.Tests.csproj", "{1738AF23-FD36-4457-B9F9-2593207CDEB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.DynamoDB", "Core.DynamoDB\Core.DynamoDB.csproj", "{DA0E3E12-7D6F-4418-8C30-D3914238A914}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -543,6 +545,10 @@ Global
 		{1738AF23-FD36-4457-B9F9-2593207CDEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1738AF23-FD36-4457-B9F9-2593207CDEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1738AF23-FD36-4457-B9F9-2593207CDEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA0E3E12-7D6F-4418-8C30-D3914238A914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA0E3E12-7D6F-4418-8C30-D3914238A914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA0E3E12-7D6F-4418-8C30-D3914238A914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA0E3E12-7D6F-4418-8C30-D3914238A914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,60 @@
+
+match minimal - using invariants
+
+match:
+players
+Venue
+max_innings
+max_overs
+balls_per_over
+
+innings:
+id
+innings#
+wickets#
+overs#
+is_complete
+
+over:
+id
+innings#
+over#
+balls#
+is_complete
+
+
+over minimal - using invariants
+
+match_id
+innings_id
+bowler(s)
+batsmen
+wickets#
+runs#
+balls
+is_complete
+
+ball:
+bowler_id
+batsman_id
+runs
+wicket
+
+bowler:
+player_id
+in_play
+right_handed
+
+batsman:
+player_id
+dismissal
+right_handed
+
+Match Details -> Innings -> Over -> Bowler Bowls Ball -> Striking Batsman Hits ball -> Scores runs
+    Players                                                                         -> Dismissal
+
+Match Created -> Players enrolled -> Toss Won -> New Innings -> Batsmen / Bowler enter -> New Over -> New Ball -> Runs Scored
+                                                                                                               -> Wicket
+                                                                                                               -> Batsman Dismissed
+                                                                                                    -> Batsman Enter
+                                                                                                    -> Bowler Swap

@@ -53,17 +53,17 @@ public class CreateMeetingTests: IClassFixture<CreateMeetingFixture>
         createdId.Should().Be(fixture.MeetingId);
     }
 
-    [Fact]
-    [Trait("Category", "Acceptance")]
-    public void CreateCommand_ShouldPublish_MeetingCreateEvent()
-    {
-        // assert MeetingCreated event was produced to external bus
-        fixture.ShouldPublishInternalEventOfType<MeetingCreated>(
-            @event =>
-                @event.MeetingId == fixture.MeetingId
-                && @event.Name == fixture.MeetingName
-            );
-    }
+    // [Fact]
+    // [Trait("Category", "Acceptance")]
+    // public void CreateCommand_ShouldPublish_MeetingCreateEvent()
+    // {
+    //     // assert MeetingCreated event was produced to external bus
+    //     fixture.ShouldPublishInternalEventOfType<MeetingCreated>(
+    //         @event =>
+    //             @event.MeetingId == fixture.MeetingId
+    //             && @event.Name == fixture.MeetingName
+    //         );
+    // }
 
     [Fact]
     [Trait("Category", "Acceptance")]

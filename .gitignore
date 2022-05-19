@@ -252,3 +252,4 @@ paket-files/
 *.sln.iml
 
 **/out
+Sample/DynamoTickets/docker/dynamodb/shared-local-instance.db
