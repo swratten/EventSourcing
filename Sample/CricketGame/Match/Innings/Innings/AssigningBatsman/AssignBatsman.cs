@@ -1,33 +1,33 @@
 using Core.Commands;
 using Core.DynamoDbEventStore.Events;
 using Core.DynamoDbEventStore.Repository;
-using Innings.Innings.Bowlers;
+using Innings.Innings.Batsmen;
 using MediatR;
 
-namespace Innings.Innings.AssigningBowler;
+namespace Innings.Innings.AssigningBatsman;
 
-public record AssignBowler(
+public record AssignBatsman(
     Guid InningsId,
-    Bowler Bowler
+    Batsman Batsman
 ) : ICommand
 {
-    public static AssignBowler Create(Guid inningsId, Bowler bowler)
+    public static AssignBatsman Create(Guid inningsId, Batsman batsman)
     {
         if(inningsId == Guid.Empty)
             throw new ArgumentOutOfRangeException(nameof(inningsId));
-        if(bowler == null)
-            throw new ArgumentNullException(nameof(bowler));
-        return new AssignBowler(inningsId, bowler);
+        if(batsman == null)
+            throw new ArgumentNullException(nameof(batsman));
+        return new AssignBatsman(inningsId, batsman);
     }
 }
 
-internal class HandleAssignBowler:
-    ICommandHandler<AssignBowler>
+internal class HandleAssignBatsman:
+    ICommandHandler<AssignBatsman>
 {
     private readonly IDynamoDBRepository<Innings> repository;
     private readonly IDynamoDBAppendScope scope;
 
-    public HandleAssignBowler(
+    public HandleAssignBatsman(
         IDynamoDBRepository<Innings> repository,
         IDynamoDBAppendScope scope
     )
@@ -35,12 +35,12 @@ internal class HandleAssignBowler:
         this.repository = repository;
         this.scope = scope;
     }
-    public async Task<Unit> Handle(AssignBowler command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(AssignBatsman command, CancellationToken cancellationToken)
     {
         await scope.Do((expectedVersion, traceMetadata) =>
             repository.GetAndUpdate(
                 command.InningsId,
-                innings => innings.AssignBowler(command.Bowler),
+                innings => innings.AssignBatsman(command.Batsman),
                 expectedVersion,
                 traceMetadata,
                 cancellationToken

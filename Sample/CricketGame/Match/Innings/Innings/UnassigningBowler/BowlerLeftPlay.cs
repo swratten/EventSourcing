@@ -1,18 +1,18 @@
 using Innings.Innings.Bowlers;
 
-namespace Innings.Innings.AssigningBowler;
+namespace Innings.Innings.UnassigningBowler;
 
-public record BowlerEnteredPlay(
+public record BowlerLeftPlay(
     Guid InningsId,
     Bowler Bowler
 )
 {
-    public static BowlerEnteredPlay Create(Guid inningsId, Bowler bowler)
+    public static BowlerLeftPlay Create(Guid inningsId, Bowler bowler)
     {
         if(inningsId == Guid.Empty)
             throw new ArgumentOutOfRangeException(nameof(inningsId));
         if(bowler == null)
             throw new ArgumentNullException(nameof(bowler));
-        return new BowlerEnteredPlay(inningsId, bowler);
+        return new BowlerLeftPlay(inningsId, bowler);
     }
 }

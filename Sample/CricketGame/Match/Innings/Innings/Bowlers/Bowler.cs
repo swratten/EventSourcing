@@ -20,6 +20,18 @@ public class Bowler
     {
         return new Bowler(playerId, inPlay, overs, wickets, maidens, runs);
     }
+    public Bowler EnterPlay(Bowler bowler)
+    {
+        if(!MatchesBowler(bowler))
+            throw new ArgumentException("Bowler does not match");
+        return Create(bowler.PlayerId, true, bowler.Overs, bowler.Wickets, bowler.Maidens, bowler.Runs);
+    }
+    public Bowler LeavePlay(Bowler bowler)
+    {
+        if(!MatchesBowler(bowler))
+            throw new ArgumentException("Bowler does not match");
+        return Create(bowler.PlayerId, false, bowler.Overs, bowler.Wickets, bowler.Maidens, bowler.Runs);
+    }
     public Bowler MergeWith(Bowler bowler)
     {
         if(!MatchesBowler(bowler))

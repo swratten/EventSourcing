@@ -4,30 +4,30 @@ using Core.DynamoDbEventStore.Repository;
 using Innings.Innings.Bowlers;
 using MediatR;
 
-namespace Innings.Innings.AssigningBowler;
+namespace Innings.Innings.UnassigningBowler;
 
-public record AssignBowler(
+public record UnassignBowler(
     Guid InningsId,
     Bowler Bowler
 ) : ICommand
 {
-    public static AssignBowler Create(Guid inningsId, Bowler bowler)
+    public static UnassignBowler Create(Guid inningsId, Bowler bowler)
     {
         if(inningsId == Guid.Empty)
             throw new ArgumentOutOfRangeException(nameof(inningsId));
         if(bowler == null)
             throw new ArgumentNullException(nameof(bowler));
-        return new AssignBowler(inningsId, bowler);
+        return new UnassignBowler(inningsId, bowler);
     }
 }
 
-internal class HandleAssignBowler:
-    ICommandHandler<AssignBowler>
+internal class HandleUnassignBowler:
+    ICommandHandler<UnassignBowler>
 {
     private readonly IDynamoDBRepository<Innings> repository;
     private readonly IDynamoDBAppendScope scope;
 
-    public HandleAssignBowler(
+    public HandleUnassignBowler(
         IDynamoDBRepository<Innings> repository,
         IDynamoDBAppendScope scope
     )
@@ -35,12 +35,12 @@ internal class HandleAssignBowler:
         this.repository = repository;
         this.scope = scope;
     }
-    public async Task<Unit> Handle(AssignBowler command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UnassignBowler command, CancellationToken cancellationToken)
     {
         await scope.Do((expectedVersion, traceMetadata) =>
             repository.GetAndUpdate(
                 command.InningsId,
-                innings => innings.AssignBowler(command.Bowler),
+                innings => innings.UnassignBowler(command.Bowler),
                 expectedVersion,
                 traceMetadata,
                 cancellationToken

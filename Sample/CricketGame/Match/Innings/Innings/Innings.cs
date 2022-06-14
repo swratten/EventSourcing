@@ -5,6 +5,9 @@ using Innings.Innings.Bowlers;
 using Innings.Innings.Batsmen;
 using Innings.Innings.InitializingInnings;
 using Innings.Innings.AssigningBowler;
+using Innings.Innings.AssigningBatsman;
+using Innings.Innings.UnassigningBatsman;
+using Innings.Innings.UnassigningBowler;
 
 namespace Innings.Innings;
 public class Innings : Aggregate
@@ -88,7 +91,7 @@ public class Innings : Aggregate
     {
         if(InningsStatus != InningsStatus.Initialized)
             throw new InvalidOperationException($"Assigning Bowler for Innings in '{InningsStatus}' status is not allowed.");
-        var @event = BowlerEnteredPlay.Create(Id ,bowler);
+        var @event = BowlerEnteredPlay.Create(Id, bowler);
 
         Enqueue(@event);
         Apply(@event);
@@ -101,18 +104,93 @@ public class Innings : Aggregate
         var existingBowler = FindBowlerMatchingWith(newBowler);
         if (existingBowler is null)
         {
-            Bowlers.Add(newBowler);
+            Bowlers.Add(newBowler.EnterPlay(newBowler));
             return;
         }
 
         Bowlers.Replace(
             existingBowler,
-            existingBowler.MergeWith(newBowler)
+            existingBowler.EnterPlay(newBowler)
+        );
+    }
+    public void AssignBatsman(Batsman batsman)
+    {
+        if(InningsStatus != InningsStatus.Initialized)
+            throw new InvalidOperationException($"Assigning Batsman for Innings in '{InningsStatus}' status is not allowed.");
+        
+        var @event = BatsmanEnteredPlay.Create(Id, batsman);
+
+        Enqueue(@event);
+        Apply(@event);
+    }
+    public void Apply(BatsmanEnteredPlay @event)
+    {
+        Version++;
+        var newBatsman = @event.Batsman;
+        var existingBatsman = FindBatsmanMatchingWith(@event.Batsman);
+        if(existingBatsman is null)
+        {
+            Batsmen.Add(newBatsman.EnterPlay(newBatsman));
+            return;
+        }
+
+        Batsmen.Replace(
+            existingBatsman,
+            existingBatsman.EnterPlay(newBatsman)
+        );
+    }
+    public void UnassignBatsman(Batsman batsman, BatsmanState state)
+    {
+        if(InningsStatus != InningsStatus.Initialized)
+            throw new InvalidOperationException($"Unassigning Batsman for Innings in '{InningsStatus}' status is not allowed.");
+        var @event = BatsmanLeftPlay.Create(Id, batsman, state);
+        Enqueue(@event);
+        Apply(@event);
+    }
+    public void Apply(BatsmanLeftPlay @event)
+    {
+        Version++;
+        var newBatsman = @event.Batsman;
+        var existingBatsman = FindBatsmanMatchingWith(@event.Batsman);
+        if(existingBatsman is null)
+        {
+            throw new InvalidOperationException($"Batsman did not exist");
+        }
+        Batsmen.Replace(
+            existingBatsman,
+            @event.State == BatsmanState.Dismissed ? existingBatsman.Dismiss(newBatsman) : existingBatsman.Retire(newBatsman)
+        );
+    }
+    public void UnassignBowler(Bowler Bowler)
+    {
+        if(InningsStatus != InningsStatus.Initialized)
+            throw new InvalidOperationException($"Unassigning Bowler for Innings in '{InningsStatus}' status is not allowed.");
+        var @event = BowlerLeftPlay.Create(Id, Bowler);
+        Enqueue(@event);
+        Apply(@event);
+    }
+    public void Apply(BowlerLeftPlay @event)
+    {
+        Version++;
+        var newBowler = @event.Bowler;
+        var existingBowler = FindBowlerMatchingWith(@event.Bowler);
+        if(existingBowler is null)
+        {
+            throw new InvalidOperationException($"Bowler did not exist");
+        }
+        Bowlers.Replace(
+            existingBowler,
+            existingBowler.LeavePlay(newBowler)
         );
     }
     private Bowler? FindBowlerMatchingWith(Bowler bowler)
     {
         return Bowlers
             .SingleOrDefault(b => b.MatchesBowler(b));
+    }
+    private Batsman? FindBatsmanMatchingWith(Batsman batsman)
+    {
+        return Batsmen
+            .SingleOrDefault(b => b.MatchesBatsman(b));
     }
 }

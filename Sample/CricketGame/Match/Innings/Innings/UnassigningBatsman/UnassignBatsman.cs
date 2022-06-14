@@ -1,33 +1,36 @@
 using Core.Commands;
 using Core.DynamoDbEventStore.Events;
 using Core.DynamoDbEventStore.Repository;
-using Innings.Innings.Bowlers;
+using Innings.Innings.Batsmen;
 using MediatR;
 
-namespace Innings.Innings.AssigningBowler;
+namespace Innings.Innings.UnassigningBatsman;
 
-public record AssignBowler(
+public record UnassignBatsman(
     Guid InningsId,
-    Bowler Bowler
+    Batsman Batsman,
+    BatsmanState state
 ) : ICommand
 {
-    public static AssignBowler Create(Guid inningsId, Bowler bowler)
+    public static UnassignBatsman Create(Guid inningsId, Batsman batsman, BatsmanState state)
     {
         if(inningsId == Guid.Empty)
             throw new ArgumentOutOfRangeException(nameof(inningsId));
-        if(bowler == null)
-            throw new ArgumentNullException(nameof(bowler));
-        return new AssignBowler(inningsId, bowler);
+        if(batsman == null)
+            throw new ArgumentNullException(nameof(batsman));
+        if(state == default)
+            throw new ArgumentOutOfRangeException(nameof(state));
+        return new UnassignBatsman(inningsId, batsman, state);
     }
 }
 
-internal class HandleAssignBowler:
-    ICommandHandler<AssignBowler>
+internal class HandleUnassignBatsman:
+    ICommandHandler<UnassignBatsman>
 {
     private readonly IDynamoDBRepository<Innings> repository;
     private readonly IDynamoDBAppendScope scope;
 
-    public HandleAssignBowler(
+    public HandleUnassignBatsman(
         IDynamoDBRepository<Innings> repository,
         IDynamoDBAppendScope scope
     )
@@ -35,12 +38,12 @@ internal class HandleAssignBowler:
         this.repository = repository;
         this.scope = scope;
     }
-    public async Task<Unit> Handle(AssignBowler command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UnassignBatsman command, CancellationToken cancellationToken)
     {
         await scope.Do((expectedVersion, traceMetadata) =>
             repository.GetAndUpdate(
                 command.InningsId,
-                innings => innings.AssignBowler(command.Bowler),
+                innings => innings.UnassignBatsman(command.Batsman, command.state),
                 expectedVersion,
                 traceMetadata,
                 cancellationToken
